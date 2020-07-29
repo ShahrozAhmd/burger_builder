@@ -1,8 +1,12 @@
-import React from "react";
+import React, { Component } from "react";
 import styles from "./burger_ingredients.module.css";
+import BurgerBuilder from "../../../../containers/BurgerBuilder/burger_builder";
 
-const burgerIngredients = (props) => {
-  let ingredients = null;
+class BurgerIngredients extends Component{
+  render(){
+      
+  
+    let ingredients = null;
 
   switch (action.type) {
     case "bread-bottom":
@@ -36,4 +40,6 @@ const burgerIngredients = (props) => {
   }
 
   return ingredients;
-};
+}};
+
+export default BurgerBuilder;
