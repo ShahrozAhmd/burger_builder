@@ -1,5 +1,5 @@
 import React, { Component} from 'react'
-import Aux from '../../hoc/aux'
+import Aux from '../../hoc/Aux'
 
 
 export default class BurgerBuilder extends Component{
