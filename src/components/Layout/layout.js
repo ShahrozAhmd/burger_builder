@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './layout.module.css'
-import Aux from "../../hoc/Aux";
+import Aux from "../../hoc/auxiliary";
 import BurgerBuilder from "../../containers/BurgerBuilder/burger_builder";
 
 const Layout = (props) => {
