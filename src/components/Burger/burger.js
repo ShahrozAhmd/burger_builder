@@ -3,13 +3,18 @@ import styles from "./burger.module.css";
 import BurgerIngredients from "./Burger Ingredients/burger_ingredients";
 
 const burger = (props) => {
+
+  const transformedIng = Object.keys(props.ingredients).map((igKeys) => {
+    return [...Array(props.ingredients[igKeys])].map((_, igIndex) => {
+      return <BurgerIngredients key={igKeys + igIndex} type={igKeys} />;
+    });
+  });
+
+  
   return (
     <div className={styles.Burger}>
       <BurgerIngredients type="bread-top" />
-      <BurgerIngredients type="cheese" />
-      <BurgerIngredients type="meat" />
-      <BurgerIngredients type="salad" />
-      <BurgerIngredients type="bacon" />
+      {transformedIng}
       <BurgerIngredients type="bread-bottom" />
     </div>
   );

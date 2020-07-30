@@ -4,6 +4,8 @@ import styles from "./burger_ingredients.module.css";
 
 
 class BurgerIngredients extends Component {
+
+  
   render() {
     let ingredients = null;
 
