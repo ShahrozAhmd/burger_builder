@@ -42,7 +42,7 @@ class BurgerIngredients extends Component {
     return ingredients;
   }
 }
-
+//this is prop-type checking using prop-type package.
 BurgerIngredients.propTypes = {
   type: PropTypes.string.isRequired,
 };
