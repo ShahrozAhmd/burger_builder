@@ -27,20 +27,51 @@ export default class BurgerBuilder extends Component {
     const updatedIngCount = ingCount + 1;
     const currIngState = { ...this.state.ingredients };
     currIngState[type] = updatedIngCount;
+
     //below lines are for updating the price as per ingredients added
     const currPrice = this.state.totalPrice;
     const newPrice = INGREDIENTS_PRICES[type] * updatedIngCount;
-    //now finally we update the state
 
+    //now finally we update the state
     this.setState({
-   totalPrice: newPrice, ingredients: currIngState })
+      totalPrice: newPrice,
+      ingredients: currIngState,
+    });
+  };
+
+  removeIngredientsHandler = (type) => {
+    //below four lines done the work to create the updated state for removing ingredient
+    const ingCount = this.state.ingredients[type];
+    const updatedIngCount = ingCount - 1;
+    const currIngState = { ...this.state.ingredients };
+    currIngState[type] = updatedIngCount;
+
+    //below lines are for updating the price as per ingredients added
+    const currPrice = this.state.totalPrice;
+    const newPrice = INGREDIENTS_PRICES[type] * updatedIngCount;
+
+    //now finally we update the state
+    this.setState({
+      totalPrice: newPrice,
+      ingredients: currIngState,
+    });
   };
 
   render() {
+    const disableInfo = {
+      ...this.state.ingredients,
+    };
+    for (const key in disableInfo) {
+      disableInfo[key] = disableInfo[key] <= 0;
+    }
     return (
       <Aux>
         <Burger ingredients={this.state.ingredients} />
-        <BuildControls addIngredient= {this.addIngredientsHandler} />
+        <BuildControls
+          addIngredient={this.addIngredientsHandler}
+          removeIngredient={this.removeIngredientsHandler}
+          disable={disableInfo}
+        />
       </Aux>
     );
   }

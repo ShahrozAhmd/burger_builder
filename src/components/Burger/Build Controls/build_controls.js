@@ -13,10 +13,19 @@ export default function BuildControls(props) {
   return (
     <div className={classes.BuildControls}>
       {controls.map((item) => {
-        return <BuildControl 
-            key={item.label} 
-            label={item.label} 
-            added = {()=> {props.addIngredient(item.type)}} />;
+        return (
+          <BuildControl
+            key={item.label}
+            label={item.label}
+            added={() => {
+              props.addIngredient(item.type);
+            }}
+            remove={() => {
+              props.removeIngredient(item.type);
+            }}
+            disInfo={props.disable[item.type]}
+          />
+        );
       })}
     </div>
   );
