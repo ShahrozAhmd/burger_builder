@@ -4,10 +4,10 @@ import Burger from "../../components/Burger/burger";
 import BuildControls from "../../components/Burger/Build Controls/build_controls";
 
 const INGREDIENTS_PRICES = {
-  cheese: 0.5,
-  salad: 0.4,
-  meat: 0.8,
-  bacon: 0.6,
+  cheese: 2,
+  salad: 1,
+  meat: 4,
+  bacon: 3,
 };
 
 export default class BurgerBuilder extends Component {
@@ -30,7 +30,7 @@ export default class BurgerBuilder extends Component {
 
     //below lines are for updating the price as per ingredients added
     const currPrice = this.state.totalPrice;
-    const newPrice = INGREDIENTS_PRICES[type] * updatedIngCount;
+    const newPrice = currPrice+ (INGREDIENTS_PRICES[type]);
 
     //now finally we update the state
     this.setState({
@@ -48,7 +48,7 @@ export default class BurgerBuilder extends Component {
 
     //below lines are for updating the price as per ingredients added
     const currPrice = this.state.totalPrice;
-    const newPrice = INGREDIENTS_PRICES[type] * updatedIngCount;
+    const newPrice = currPrice -  (INGREDIENTS_PRICES[type]);
 
     //now finally we update the state
     this.setState({
@@ -71,6 +71,7 @@ export default class BurgerBuilder extends Component {
           addIngredient={this.addIngredientsHandler}
           removeIngredient={this.removeIngredientsHandler}
           disable={disableInfo}
+          price = {this.state.totalPrice}
         />
       </Aux>
     );
