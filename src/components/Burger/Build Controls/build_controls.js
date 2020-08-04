@@ -12,7 +12,9 @@ export default function BuildControls(props) {
 
   return (
     <div className={classes.BuildControls}>
-      <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
+      <p>
+        Current Price: <strong>{props.price.toFixed(2)}</strong>
+      </p>
       {controls.map((item) => {
         return (
           <BuildControl
@@ -28,6 +30,7 @@ export default function BuildControls(props) {
           />
         );
       })}
+      <button className={classes.OrderButton} disabled = {!props.purchasable}>ORDER NOW</button>
     </div>
   );
 }

@@ -19,7 +19,23 @@ export default class BurgerBuilder extends Component {
       bacon: 0,
     },
     totalPrice: 5,
+    isPurchasable: false,
   };
+
+  //validate if order button should be active or disable
+  orderButtonValiadtor(ingredients) {
+    const ingSorting = Object.keys(ingredients)
+      .map((igKeys) => {
+        return ingredients[igKeys];
+      })
+      .reduce((prev, next) => {
+        return prev + next;
+      }, 0);
+
+    this.setState({
+      isPurchasable: ingSorting > 0,
+    });
+  }
 
   addIngredientsHandler = (type) => {
     //below four lines done the work to create the updated state for incremented ingredient
@@ -30,13 +46,16 @@ export default class BurgerBuilder extends Component {
 
     //below lines are for updating the price as per ingredients added
     const currPrice = this.state.totalPrice;
-    const newPrice = currPrice+ (INGREDIENTS_PRICES[type]);
+    const newPrice = currPrice + INGREDIENTS_PRICES[type];
 
     //now finally we update the state
     this.setState({
       totalPrice: newPrice,
       ingredients: currIngState,
     });
+
+    //for order button  validation
+    this.orderButtonValiadtor(currIngState);
   };
 
   removeIngredientsHandler = (type) => {
@@ -48,13 +67,15 @@ export default class BurgerBuilder extends Component {
 
     //below lines are for updating the price as per ingredients added
     const currPrice = this.state.totalPrice;
-    const newPrice = currPrice -  (INGREDIENTS_PRICES[type]);
+    const newPrice = currPrice - INGREDIENTS_PRICES[type];
 
     //now finally we update the state
     this.setState({
       totalPrice: newPrice,
       ingredients: currIngState,
     });
+    //for order button  validation
+    this.orderButtonValiadtor(currIngState);
   };
 
   render() {
@@ -71,7 +92,8 @@ export default class BurgerBuilder extends Component {
           addIngredient={this.addIngredientsHandler}
           removeIngredient={this.removeIngredientsHandler}
           disable={disableInfo}
-          price = {this.state.totalPrice}
+          price={this.state.totalPrice}
+          purchasable={this.state.isPurchasable}
         />
       </Aux>
     );
