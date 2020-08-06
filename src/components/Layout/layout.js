@@ -6,7 +6,7 @@ import Aux from "../../hoc/auxiliary";
 const Layout = (props) => {
   return (
     <Aux>
-      <p>In layout.js file</p>
+      {/* <p>In layout.js file</p> */}
 
       <main className={styles.content}>{props.children}</main>
     </Aux>
