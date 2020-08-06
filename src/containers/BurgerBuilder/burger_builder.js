@@ -22,6 +22,7 @@ export default class BurgerBuilder extends Component {
     },
     totalPrice: 5,
     isPurchasable: false,
+    OrderClicked : false,
   };
 
   //validate if order button should be active or disable
@@ -80,6 +81,11 @@ export default class BurgerBuilder extends Component {
     this.orderButtonValiadtor(currIngState);
   };
 
+  //for performing action when order button clicked
+  orderClcikedHandler = () =>{
+    this.setState({OrderClicked: true});
+  }
+
   render() {
     const disableInfo = {
       ...this.state.ingredients,
@@ -89,7 +95,7 @@ export default class BurgerBuilder extends Component {
     }
     return (
       <Aux>
-        <Modal> 
+        <Modal show = {this.state.OrderClicked}> 
           <OrderSummary ingredients = {this.state.ingredients}/>
         </Modal>
         <Burger ingredients={this.state.ingredients} />
@@ -99,6 +105,7 @@ export default class BurgerBuilder extends Component {
           disable={disableInfo}
           price={this.state.totalPrice}
           purchasable={this.state.isPurchasable}
+          ordered = {this.orderClcikedHandler}
         />
       </Aux>
     );

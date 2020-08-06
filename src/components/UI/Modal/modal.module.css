@@ -18,3 +18,13 @@
     left: calc(50% - 250px);
   }
 }
+
+.showModal{
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.hideModal{
+    transform: translateY(-100);
+    opacity: 0;
+}
