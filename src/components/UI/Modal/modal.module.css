@@ -19,12 +19,13 @@
   }
 }
 
-.showModal{
-    transform: translateY(0);
-    opacity: 1;
+.showModal {
+  transform: translateY(0);
+  opacity: 1;
 }
 
-.hideModal{
-    transform: translateY(-100);
-    opacity: 0;
+.hideModal {
+  transform: translateY(-100);
+  opacity: 0;
+  display: none;
 }
