@@ -85,6 +85,10 @@ export default class BurgerBuilder extends Component {
   orderClcikedHandler = () =>{
     this.setState({OrderClicked: true});
   }
+  //for removing modal by clicking on backdorp
+  removeModal = () =>{
+    this.setState({OrderClicked:false});
+  }
 
   render() {
     const disableInfo = {
@@ -95,7 +99,7 @@ export default class BurgerBuilder extends Component {
     }
     return (
       <Aux>
-        <Modal show = {this.state.OrderClicked}> 
+        <Modal show = {this.state.OrderClicked} removebackdrop = {this.removeModal}> 
           <OrderSummary ingredients = {this.state.ingredients}/>
         </Modal>
         <Burger ingredients={this.state.ingredients} />
