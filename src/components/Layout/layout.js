@@ -1,19 +1,31 @@
-import React from "react";
-import styles from "./layout.module.css";
+import React, { Component } from "react";
+import classes from "./layout.module.css";
 import Aux from "../../hoc/auxiliary";
 import Toolbar from "../Navigation/Toolbar/toolbar";
 import SideDrawer from "../Navigation/Side Drawer/side_drawer";
-// import BurgerBuilder from "../../containers/BurgerBuilder/burger_builder";
 
-const Layout = (props) => {
-  return (
-    <Aux>
-      <SideDrawer />
-      <Toolbar />
+class Layout extends Component {
+  state = {
+    openSideDrawer: true,
+  };
 
-      <main className={styles.content}>{props.children}</main>
-    </Aux>
-  );
-};
+  sideDrawerCloseHandler = () => {
+    this.setState({ openSideDrawer: false });
+  };
+
+  render() {
+    return (
+      <Aux>
+        <SideDrawer
+          open={this.state.openSideDrawer}
+          closed={this.sideDrawerCloseHandler}
+        />
+        <Toolbar />
+
+        <main className={classes.content}>{this.props.children}</main>
+      </Aux>
+    );
+  }
+}
 
 export default Layout;
