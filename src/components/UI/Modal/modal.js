@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "./modal.module.css";
 import Backdrop from "../Backdrop/backdrop";
 import Aux from "../../../hoc/auxiliary";

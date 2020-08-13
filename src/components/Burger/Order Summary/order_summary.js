@@ -2,7 +2,7 @@ import React from "react";
 import Aux from "../../../hoc/auxiliary";
 import Button from "../../UI/Button/button";
 
-export default function OrderSummary(props) {
+function OrderSummary(props) {
   let ingList = Object.keys(props.ingredients).map((igKeys) => {
     return (
       <li key={igKeys}>
@@ -17,8 +17,14 @@ export default function OrderSummary(props) {
       <h1>Your Order Summary</h1>
       <ul>{ingList}</ul>
       <p>Do you want to checkout</p>
-      <Button btntype = 'Danger' clicked ={props.cancleorder}>DISMISS</Button>
-      <Button btntype = 'Success' clicked = {props.continueorder}>CONTINUE</Button>
+      <Button btntype="Danger" clicked={props.cancleorder}>
+        DISMISS
+      </Button>
+      <Button btntype="Success" clicked={props.continueorder}>
+        CONTINUE
+      </Button>
     </Aux>
   );
 }
+
+export default React.memo(OrderSummary);
