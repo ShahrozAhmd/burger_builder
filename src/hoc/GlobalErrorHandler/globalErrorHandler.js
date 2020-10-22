@@ -9,12 +9,12 @@ const globalErrorHandler = (WrappedComponent, axios) => {
     };
 
     componentWillMount() {
-      axios.interceptors.request.use((req) => {
+      this.reqint = axios.interceptors.request.use((req) => {
         this.setState({ error: null });
         return req;
       });
 
-      axios.interceptors.response.use(
+      this.resint = axios.interceptors.response.use(
         (res) => res,
         (error) => {
           this.setState({ error: error });
@@ -22,16 +22,21 @@ const globalErrorHandler = (WrappedComponent, axios) => {
       );
     }
 
+    componentWillUnmount() {
+      axios.interceptors.request.eject(this.reqint);
+      axios.interceptors.response.eject(this.resint);
+    }
+
     errorConfirmed = () => {
       this.setState({ error: null });
-    }
+    };
 
     render() {
       return (
         <Aux>
           <Modal show={this.state.error} removebackdrop={this.errorConfirmed}>
-            {this.state.error? this.state.error.message : null}
-            </Modal>
+            {this.state.error ? this.state.error.message : null}
+          </Modal>
           <WrappedComponent {...this.props} />
         </Aux>
       );
