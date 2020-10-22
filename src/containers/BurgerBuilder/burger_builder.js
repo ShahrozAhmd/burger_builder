@@ -17,17 +17,24 @@ const INGREDIENTS_PRICES = {
 
 class BurgerBuilder extends Component {
   state = {
-    ingredients: {
-      cheese: 0,
-      salad: 0,
-      meat: 0,
-      bacon: 0,
-    },
+    ingredients: null,
     totalPrice: 5,
     isPurchasable: false,
     OrderClicked: false,
     loading: false,
+    error: false,
   };
+
+  componentDidMount() {
+    axios
+      .get("https://itsburgerapp.firebaseio.com/ingredients.json")
+      .then((response) => {
+        this.setState({ ingredients: response.data });
+      })
+      .catch((error) => {
+        this.setState({ error: true });
+      });
+  }
 
   //validate if order button should be active or disable
   orderButtonValiadtor(ingredients) {
@@ -124,13 +131,35 @@ class BurgerBuilder extends Component {
       disableInfo[key] = disableInfo[key] <= 0;
     }
 
-    let orderSummary = (
-      <OrderSummary
-        ingredients={this.state.ingredients}
-        cancleorder={this.removeModal}
-        continueorder={this.continueOrder}
-      />
+    let orderSummary = null;
+    let burger = this.state.error ? (
+      <p>Ingredients can't load </p>
+    ) : (
+      <Spinner />
     );
+
+    if (this.state.ingredients) {
+      burger = (
+        <Aux>
+          <Burger ingredients={this.state.ingredients} />
+          <BuildControls
+            addIngredient={this.addIngredientsHandler}
+            removeIngredient={this.removeIngredientsHandler}
+            disable={disableInfo}
+            price={this.state.totalPrice}
+            purchasable={this.state.isPurchasable}
+            ordered={this.orderClcikedHandler}
+          />
+        </Aux>
+      );
+      orderSummary = (
+        <OrderSummary
+          ingredients={this.state.ingredients}
+          cancleorder={this.removeModal}
+          continueorder={this.continueOrder}
+        />
+      );
+    }
 
     if (this.state.loading) {
       orderSummary = <Spinner />;
@@ -141,15 +170,7 @@ class BurgerBuilder extends Component {
         <Modal show={this.state.OrderClicked} removebackdrop={this.removeModal}>
           {orderSummary}
         </Modal>
-        <Burger ingredients={this.state.ingredients} />
-        <BuildControls
-          addIngredient={this.addIngredientsHandler}
-          removeIngredient={this.removeIngredientsHandler}
-          disable={disableInfo}
-          price={this.state.totalPrice}
-          purchasable={this.state.isPurchasable}
-          ordered={this.orderClcikedHandler}
-        />
+        {burger}
       </Aux>
     );
   }
