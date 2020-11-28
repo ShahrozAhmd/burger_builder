@@ -2,7 +2,8 @@ import React from "react";
 import styles from "./burger.module.css";
 import BurgerIngredients from "./Burger Ingredients/burger_ingredients";
 
-const burger = (props) => {
+
+const Burger = (props) => {
   let transformedIng = Object.keys(props.ingredients)
     .map((igKeys) => {
       return [...Array(props.ingredients[igKeys])].map((_, igIndex) => {
@@ -25,4 +26,4 @@ const burger = (props) => {
     </div>
   );
 };
-export default burger;
+export default Burger;

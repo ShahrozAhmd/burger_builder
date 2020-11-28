@@ -7,6 +7,7 @@ import OrderSummary from "../../components/Burger/Order Summary/order_summary";
 import axios from "../../axios-order";
 import Spinner from "../../components/UI/Spinner/spinner";
 import globalErrorHandler from "../../hoc/GlobalErrorHandler/globalErrorHandler";
+import Checkout from "./Checkout/checkout";
 
 const INGREDIENTS_PRICES = {
   cheese: 2,
@@ -102,25 +103,41 @@ class BurgerBuilder extends Component {
   };
 
   continueOrder = () => {
-    this.setState({ loading: true });
-    const order = {
-      ingredient: this.state.ingredients,
-      price: this.state.totalPrice,
-      customerData: {
-        name: "shahroz",
-        address: "shadman town, karachi",
-        email: "shahrozahmed286@gmail.com",
-      },
-    };
+    // this.setState({ loading: true });
+    // const order = {
+    //   ingredient: this.state.ingredients,
+    //   price: this.state.totalPrice,
+    //   customerData: {
+    //     name: "shahroz",
+    //     address: "shadman town, karachi",
+    //     email: "shahrozahmed286@gmail.com",
+    //   },
+    // };
 
-    axios
-      .post("/orders.json", order)
-      .then((response) => {
-        this.setState({ loading: false, OrderClicked: false });
-      })
-      .catch((error) => {
-        this.setState({ loading: false, OrderClicked: false });
-      });
+    // axios
+    //   .post("/orders.json", order)
+    //   .then((response) => {
+    //     this.setState({ loading: false, OrderClicked: false });
+    //   })
+    //   .catch((error) => {
+    //     this.setState({ loading: false, OrderClicked: false });
+    //   });
+
+    const queryParam = [];
+
+    for (let i in this.state.ingredients) {
+      queryParam.push(
+        encodeURIComponent(i) +
+          "=" +
+          encodeURIComponent(this.state.ingredients[i])
+      );
+    }
+    const queryStr = queryParam.join("&");
+
+    this.props.history.push({
+      pathname: "/checkout",
+      search: "?" + queryStr,
+    });
   };
 
   render() {
