@@ -39,6 +39,9 @@ class Checkout extends Component {
           checkoutCancle={this.checkoutCancleHandler}
           checkoutContinue={this.checkoutContinueHandler}
         />
+        {/* load cntactfrom component here inside function coz wants to pass my own 
+        props here.
+        */}
         <Route
           path={this.props.match.path + "/contact-form"}
           component={ () => <ContactForm data = {this.state.ingredients} />}

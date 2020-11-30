@@ -9,11 +9,13 @@ class Orders extends Component {
     loading: false,
   };
 
+  //fetching orders from firebase
   componentDidMount() {
     axios
       .get("/orders.json")
       .then((res) => {
         const fetchedOrders = [];
+        // through the rough data we get from api and also assing the id to all orders
         for (const key in res.data) {
           fetchedOrders.push({ ...res.data[key], id: key });
         }

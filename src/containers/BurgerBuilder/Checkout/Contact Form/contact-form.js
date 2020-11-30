@@ -27,6 +27,7 @@ class ContactForm extends Component {
   };
 
   componentDidMount() {
+    //here i calculate the total price of burger using the ingredients, getting from props
     const length = Object.keys(this.props.data).length;
     const ing = this.props.data;
     var total = this.state.totalPrice;
@@ -38,6 +39,7 @@ class ContactForm extends Component {
   }
 
   placeOrder = (e) => {
+    //to prevent page to refresh on the submission of form
     e.preventDefault();
 
     this.setState({ loading: true });
@@ -46,6 +48,7 @@ class ContactForm extends Component {
       price: this.state.totalPrice,
     };
 
+    //posting order on the server :firebase
     axios
       .post("/orders.json", order)
       .then((response) => {
@@ -79,4 +82,6 @@ class ContactForm extends Component {
   }
 }
 
+//here i use withRouter becase although this component is load from
+//Route but cant get props coz it is not directly loaded but from function
 export default withRouter(ContactForm);

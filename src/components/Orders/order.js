@@ -4,13 +4,15 @@ import classes from "./order.module.css";
 const Order = (props) => {
   const ingredients = [];
 
+  //creating individual object of each ingredeients 
+  //we have in our burger which includes its price and name
   for (let key in props.ingredients) {
     ingredients.push({
       ingredientName: key,
       quantity: props.ingredients[key],
     });
   }
-
+// looping through all the ingredienst objects and pass them in a span to put in below tags
   const ingredientsOutput = ingredients.map((item) => {
     return (
       <span 
