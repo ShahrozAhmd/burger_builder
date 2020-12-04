@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1f7acd0b274985417f18e6f1764f67ff",
+    "revision": "f649bb8d8048bfbdec4ece947bd3b443",
     "url": "/burger_builder/index.html"
   },
   {
-    "revision": "175299703c97dce49d85",
-    "url": "/burger_builder/static/css/main.7a1250af.chunk.css"
+    "revision": "dbcd47b2693feb94a3c5",
+    "url": "/burger_builder/static/css/main.49d016ae.chunk.css"
   },
   {
-    "revision": "6688695596cf7065be6d",
-    "url": "/burger_builder/static/js/2.a55e5a7b.chunk.js"
+    "revision": "4f815bdf497f0ed64713",
+    "url": "/burger_builder/static/js/2.62e63a8c.chunk.js"
   },
   {
     "revision": "c64c486544348f10a6d6c716950bc223",
-    "url": "/burger_builder/static/js/2.a55e5a7b.chunk.js.LICENSE.txt"
+    "url": "/burger_builder/static/js/2.62e63a8c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "175299703c97dce49d85",
-    "url": "/burger_builder/static/js/main.d90733c4.chunk.js"
+    "revision": "dbcd47b2693feb94a3c5",
+    "url": "/burger_builder/static/js/main.196493df.chunk.js"
   },
   {
     "revision": "a22ee43ba3f217dbcc32",
