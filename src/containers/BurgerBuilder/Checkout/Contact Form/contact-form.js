@@ -4,6 +4,7 @@ import Spinner from "../../../../components/UI/Spinner/spinner";
 import classes from "./contatc-form.module.css";
 import axios from "../../../../axios-order";
 import Aux from "../../../../hoc/auxiliary";
+import Input from "../../../../components/UI/Input/input";
 import { withRouter } from "react-router-dom";
 
 const INGREDIENTS_PRICES = {
@@ -15,15 +16,69 @@ const INGREDIENTS_PRICES = {
 
 class ContactForm extends Component {
   state = {
-    name: "",
-    email: "",
-    address: {
-      city: "",
-      postalCode: "",
+    orderForm: {
+      name: {
+        elementType: "input",
+        elementConfig: {
+          placeholder: "your name",
+          type: "text",
+        },
+        value: "",
+      },
+      email: {
+        elementType: "input",
+        elementConfig: {
+          placeholder: "your email",
+          type: "text",
+        },
+        value: "",
+      },
+      city: {
+        elementType: "input",
+        elementConfig: {
+          placeholder: "your city",
+          type: "text",
+        },
+        value: "",
+      },
+      postalCode: {
+        elementType: "input",
+        elementConfig: {
+          placeholder: "ZIP Code",
+          type: "number",
+        },
+        value: "",
+      },
+
+      delivery: {
+        elementType: "select",
+        elementConfig: {
+          options: [
+            { value: "fastest", display: "fastest" },
+            { value: "cheapest", display: "cheapest" },
+          ],
+        },
+        value: "",
+      },
     },
+
     ingredients: null,
     loading: false,
     totalPrice: 5,
+  };
+
+  //this function is to make out input field working, two way binding
+  onChangeHandler = (event, elementRef) => {
+    //here we just get the orderForm from state
+    let orderForm = { ...this.state.orderForm };
+    //now extract the epecific form input object, name, email..
+    let specificOrderForm = { ...orderForm[elementRef] };
+    //change the value of that specific object
+    specificOrderForm.value = event.target.value;
+    //assing that complete object into the first clone one
+    orderForm[elementRef] = specificOrderForm;
+    //update the state finally
+    this.setState({ orderForm: orderForm });
   };
 
   componentDidMount() {
@@ -43,9 +98,21 @@ class ContactForm extends Component {
     e.preventDefault();
 
     this.setState({ loading: true });
+
+    // want to extract each name and value from orderForm object from state and make a new object
+    // in which the data will be : {name: shahoz}
+    console.log(this.state.orderForm.delivery.value);
+    const formData = {};
+    for (const item in this.state.orderForm) {
+      formData[item] = this.state.orderForm[item].value;
+    }
+
+    console.log(formData);
+
     const order = {
       ingredient: this.state.ingredients,
       price: this.state.totalPrice,
+      contactForm: formData,
     };
 
     //posting order on the server :firebase
@@ -61,6 +128,32 @@ class ContactForm extends Component {
   };
 
   render() {
+    //get all the keys of orderForm object in an array,
+    // so we can map on it to generate inout fields:
+
+    let ordersFields = [];
+    for (const fields in this.state.orderForm) {
+      ordersFields.push({
+        id: fields,
+        config: this.state.orderForm[fields],
+      });
+    }
+
+    const InputField = ordersFields.map((item) => {
+      return (
+        <Input
+          key={item.id}
+          label={item.id}
+          elementType={item.config.elementType}
+          elementConfig={item.config.elementConfig}
+          value={item.config.value}
+          changed={(e) => {
+            this.onChangeHandler(e, item.id);
+          }}
+        />
+      );
+    });
+
     return (
       <Aux>
         {this.state.loading ? (
@@ -68,11 +161,7 @@ class ContactForm extends Component {
         ) : (
           <div className={classes.ContactForm}>
             <form onSubmit={this.placeOrder}>
-              <input name="name" type="text" placeholder="Your Name" />
-              <input name="email" type="email" placeholder="Your Email" />
-              <input name="name" type="text" placeholder="Your " />
-              <input name="postal" type="text" placeholder="Your Postal Code" />
-
+              {InputField}
               <Button btntype="Success"> PLACE ORDER </Button>
             </form>
           </div>

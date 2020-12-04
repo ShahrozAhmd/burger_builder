@@ -4,4 +4,4 @@ Open terminal inside project folder and run "npm install" to install all depende
 
 ## Live Demo Here
 
-See the live demo of project hrer : [https://shahrozahmd.github.io/burger_builder](https://shahrozahmd.github.io/burger_builder).
+See the live demo of project here : [https://shahrozahmd.github.io/burger_builder](https://shahrozahmd.github.io/burger_builder).
