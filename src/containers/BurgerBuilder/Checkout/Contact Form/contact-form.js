@@ -24,14 +24,30 @@ class ContactForm extends Component {
           type: "text",
         },
         value: "",
+        validation: {
+          isValid: false,
+          shouldValidate: true,
+          touched: false,
+          rules: {
+            required: true,
+          },
+        },
       },
       email: {
         elementType: "input",
         elementConfig: {
           placeholder: "your email",
-          type: "text",
+          type: "email",
         },
         value: "",
+        validation: {
+          isValid: false,
+          shouldValidate: true,
+          touched: false,
+          rules: {
+            required: true,
+          },
+        },
       },
       city: {
         elementType: "input",
@@ -40,6 +56,14 @@ class ContactForm extends Component {
           type: "text",
         },
         value: "",
+        validation: {
+          isValid: false,
+          shouldValidate: true,
+          touched: false,
+          rules: {
+            required: true,
+          },
+        },
       },
       postalCode: {
         elementType: "input",
@@ -48,6 +72,16 @@ class ContactForm extends Component {
           type: "number",
         },
         value: "",
+        validation: {
+          isValid: false,
+          shouldValidate: true,
+          touched: false,
+          rules: {
+            required: true,
+            minLength: 4,
+            maxLength: 6,
+          },
+        },
       },
 
       delivery: {
@@ -58,6 +92,12 @@ class ContactForm extends Component {
             { value: "cheapest", display: "cheapest" },
           ],
         },
+        validation: {
+          shouldValidate: false,
+          rules: {
+            required: false,
+          },
+        },
         value: "",
       },
     },
@@ -65,6 +105,22 @@ class ContactForm extends Component {
     ingredients: null,
     loading: false,
     totalPrice: 5,
+    isOrderPlaceable: false,
+    orderButtonNotify: false,
+  };
+
+  validityChecker = (value, rules) => {
+    let itsValid = false;
+
+    if (rules.required) {
+      itsValid = value.trim() !== "";
+    }
+    if (rules.minLength && rules.maxLength) {
+      itsValid =
+        value.length >= rules.minLength && value.length <= rules.maxLength;
+    }
+
+    return itsValid;
   };
 
   //this function is to make out input field working, two way binding
@@ -75,10 +131,34 @@ class ContactForm extends Component {
     let specificOrderForm = { ...orderForm[elementRef] };
     //change the value of that specific object
     specificOrderForm.value = event.target.value;
+    //we check the value of each single value
+    specificOrderForm.validation.isValid = this.validityChecker(
+      specificOrderForm.value,
+      specificOrderForm.validation.rules
+    );
+
+    //set touched property to true:
+    specificOrderForm.validation.touched = true;
     //assing that complete object into the first clone one
     orderForm[elementRef] = specificOrderForm;
+
+    // here i look thorugh all the inpout filed's isValid property value and
+    //main a stack in the array of true/false as a string, then I check that
+    //if any fasle found in the stack which means any of the field is not valid or
+    //empty so we will not let user place order
+    let checkForOrderButton;
+    let arr = [];
+    for (let item in orderForm) {
+      if (orderForm[item].validation.shouldValidate) {
+        arr.push(orderForm[item].validation.isValid.toString());
+      }
+      checkForOrderButton = !arr.includes("false");
+    }
     //update the state finally
-    this.setState({ orderForm: orderForm });
+    this.setState({
+      orderForm: orderForm,
+      isOrderPlaceable: checkForOrderButton,
+    });
   };
 
   componentDidMount() {
@@ -97,34 +177,36 @@ class ContactForm extends Component {
     //to prevent page to refresh on the submission of form
     e.preventDefault();
 
-    this.setState({ loading: true });
+    if (this.state.isOrderPlaceable) {
+      this.setState({ loading: true });
 
-    // want to extract each name and value from orderForm object from state and make a new object
-    // in which the data will be : {name: shahoz}
-    console.log(this.state.orderForm.delivery.value);
-    const formData = {};
-    for (const item in this.state.orderForm) {
-      formData[item] = this.state.orderForm[item].value;
+      // want to extract each name and value from orderForm object from state and make a new object
+      // in which the data will be : {name: shahoz}
+
+      const formData = {};
+      for (const item in this.state.orderForm) {
+        formData[item] = this.state.orderForm[item].value;
+      }
+
+      const order = {
+        ingredient: this.state.ingredients,
+        price: this.state.totalPrice,
+        contactForm: formData,
+      };
+
+      //posting order on the server :firebase
+      axios
+        .post("/orders.json", order)
+        .then((response) => {
+          this.setState({ loading: false });
+          this.props.history.push("/burger_builder");
+        })
+        .catch((error) => {
+          this.setState({ loading: false });
+        });
+    } else {
+      this.setState({ orderButtonNotify: true });
     }
-
-    console.log(formData);
-
-    const order = {
-      ingredient: this.state.ingredients,
-      price: this.state.totalPrice,
-      contactForm: formData,
-    };
-
-    //posting order on the server :firebase
-    axios
-      .post("/orders.json", order)
-      .then((response) => {
-        this.setState({ loading: false });
-        this.props.history.push("/burger_builder");
-      })
-      .catch((error) => {
-        this.setState({ loading: false });
-      });
   };
 
   render() {
@@ -147,6 +229,9 @@ class ContactForm extends Component {
           elementType={item.config.elementType}
           elementConfig={item.config.elementConfig}
           value={item.config.value}
+          shouldValidate={item.config.validation.shouldValidate}
+          invalid={!item.config.validation.isValid}
+          touched={item.config.validation.touched}
           changed={(e) => {
             this.onChangeHandler(e, item.id);
           }}
@@ -160,9 +245,16 @@ class ContactForm extends Component {
           <Spinner />
         ) : (
           <div className={classes.ContactForm}>
+            {this.state.orderButtonNotify ? (
+              <h1 style={{ border: "1px solid red", color: "red" }}>
+                Fill All Data Correctly
+              </h1>
+            ) : null}
             <form onSubmit={this.placeOrder}>
               {InputField}
-              <Button btntype="Success"> PLACE ORDER </Button>
+              <div>
+                <Button btntype="Success"> PLACE ORDER </Button>
+              </div>
             </form>
           </div>
         )}
