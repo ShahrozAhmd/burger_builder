@@ -11,18 +11,15 @@ import Checkout from "./Checkout/checkout";
 import * as actionType from "../../store/actions";
 import { connect } from "react-redux";
 
-const INGREDIENTS_PRICES = {
-  cheese: 2,
-  salad: 1,
-  meat: 4,
-  bacon: 3,
-};
+// const INGREDIENTS_PRICES = {
+//   cheese: 2,
+//   salad: 1,
+//   meat: 4,
+//   bacon: 3,
+// };
 
 class BurgerBuilder extends Component {
   state = {
-    ingredients: null,
-    totalPrice: 5,
-    isPurchasable: false,
     OrderClicked: false,
     loading: false,
     error: false,
@@ -49,9 +46,7 @@ class BurgerBuilder extends Component {
         return prev + next;
       }, 0);
 
-    this.setState({
-      isPurchasable: ingSorting > 0,
-    });
+  return ingSorting > 0 ;
   }
 
   addIngredientsHandler = (type) => {
@@ -144,7 +139,7 @@ class BurgerBuilder extends Component {
 
   render() {
     const disableInfo = {
-      ...this.props.ingFromStore
+      ...this.props.ingFromStore,
     };
     for (const key in disableInfo) {
       disableInfo[key] = disableInfo[key] <= 0;
@@ -166,7 +161,7 @@ class BurgerBuilder extends Component {
             removeIngredient={this.props.onRemoveIngredient}
             disable={disableInfo}
             price={this.props.totalPriceFromStore}
-            purchasable={this.state.isPurchasable}
+            purchasable={this.orderButtonValiadtor(this.props.ingFromStore)}
             ordered={this.orderClcikedHandler}
           />
         </Aux>
@@ -198,7 +193,7 @@ class BurgerBuilder extends Component {
 const mapStateToProps = (state) => {
   return {
     ingFromStore: state.ingredients,
-    totalPriceFromStore : state.totalPrice
+    totalPriceFromStore: state.totalPrice,
   };
 };
 
@@ -210,6 +205,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({ type: actionType.REMOVE_INGREDIENT, ingredientName: ingName }),
   };
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
