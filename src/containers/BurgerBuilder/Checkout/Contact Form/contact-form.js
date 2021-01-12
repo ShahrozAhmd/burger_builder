@@ -6,13 +6,7 @@ import axios from "../../../../axios-order";
 import Aux from "../../../../hoc/auxiliary";
 import Input from "../../../../components/UI/Input/input";
 import { withRouter } from "react-router-dom";
-
-const INGREDIENTS_PRICES = {
-  bacon: 3,
-  cheese: 2,
-  meat: 4,
-  salad: 1,
-};
+import { connect } from "react-redux";
 
 class ContactForm extends Component {
   state = {
@@ -102,9 +96,7 @@ class ContactForm extends Component {
       },
     },
 
-    ingredients: null,
     loading: false,
-    totalPrice: 5,
     isOrderPlaceable: false,
     orderButtonNotify: false,
   };
@@ -161,17 +153,17 @@ class ContactForm extends Component {
     });
   };
 
-  componentDidMount() {
-    //here i calculate the total price of burger using the ingredients, getting from props
-    const length = Object.keys(this.props.data).length;
-    const ing = this.props.data;
-    var total = this.state.totalPrice;
-    for (let item in INGREDIENTS_PRICES) {
-      total += INGREDIENTS_PRICES[item] * ing[item];
-    }
+  // componentDidMount() {
+  //   //here i calculate the total price of burger using the ingredients, getting from props
+  //   const length = Object.keys(this.props.data).length;
+  //   const ing = this.props.data;
+  //   var total = this.state.totalPrice;
+  //   for (let item in INGREDIENTS_PRICES) {
+  //     total += INGREDIENTS_PRICES[item] * ing[item];
+  //   }
 
-    this.setState({ totalPrice: total, ingredients: ing });
-  }
+  //   this.setState({ totalPrice: total, ingredients: ing });
+  // }
 
   placeOrder = (e) => {
     //to prevent page to refresh on the submission of form
@@ -189,8 +181,8 @@ class ContactForm extends Component {
       }
 
       const order = {
-        ingredient: this.state.ingredients,
-        price: this.state.totalPrice,
+        ingredient: this.props.ingFromStore,
+        price: this.props.totalPriceFromStore,
         contactForm: formData,
       };
 
@@ -262,7 +254,12 @@ class ContactForm extends Component {
     );
   }
 }
-
+const mapStateToProps = (state) => {
+  return {
+    ingFromStore: state.ingredients,
+    totalPriceFromStore: state.totalPrice,
+  };
+};
 //here i use withRouter becase although this component is load from
 //Route but cant get props coz it is not directly loaded but from function
-export default withRouter(ContactForm);
+export default connect(mapStateToProps)(withRouter(ContactForm));

@@ -48,7 +48,7 @@ class BurgerBuilder extends Component {
 
   return ingSorting > 0 ;
   }
-
+/*
   addIngredientsHandler = (type) => {
     //below four lines done the work to create the updated state for incremented ingredient
     const ingCount = this.state.ingredients[type];
@@ -89,7 +89,7 @@ class BurgerBuilder extends Component {
     //for order button  validation
     this.orderButtonValiadtor(currIngState);
   };
-
+*/
   //for performing action when order button clicked
   orderClcikedHandler = () => {
     this.setState({ OrderClicked: true });
@@ -120,21 +120,18 @@ class BurgerBuilder extends Component {
     //     this.setState({ loading: false, OrderClicked: false });
     //   });
 
-    const queryParam = [];
+    // const queryParam = [];
 
-    for (let i in this.state.ingredients) {
-      queryParam.push(
-        encodeURIComponent(i) +
-          "=" +
-          encodeURIComponent(this.state.ingredients[i])
-      );
-    }
-    const queryStr = queryParam.join("&");
+    // for (let i in this.state.ingredients) {
+    //   queryParam.push(
+    //     encodeURIComponent(i) +
+    //       "=" +
+    //       encodeURIComponent(this.state.ingredients[i])
+    //   );
+    // }
+    // const queryStr = queryParam.join("&");
 
-    this.props.history.push({
-      pathname: "/checkout",
-      search: "?" + queryStr,
-    });
+    this.props.history.push({pathname: "/checkout"});
   };
 
   render() {
