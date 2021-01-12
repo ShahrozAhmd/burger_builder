@@ -10,7 +10,7 @@ import reducer from "./store/reducer";
 const store  = createStore(reducer);
 
 const app = (
-  <Provider>
+  <Provider store ={store}>
     <Router>
       <App />
     </Router>
