@@ -11,13 +11,6 @@ import Checkout from "./Checkout/checkout";
 import * as actionType from "../../store/actions";
 import { connect } from "react-redux";
 
-// const INGREDIENTS_PRICES = {
-//   cheese: 2,
-//   salad: 1,
-//   meat: 4,
-//   bacon: 3,
-// };
-
 class BurgerBuilder extends Component {
   state = {
     OrderClicked: false,
@@ -35,7 +28,7 @@ class BurgerBuilder extends Component {
         this.setState({ error: true });
       });
   }
-
+z
   //validate if order button should be active or disable
   orderButtonValiadtor(ingredients) {
     const ingSorting = Object.keys(ingredients)
@@ -46,50 +39,9 @@ class BurgerBuilder extends Component {
         return prev + next;
       }, 0);
 
-  return ingSorting > 0 ;
+    return ingSorting > 0;
   }
-/*
-  addIngredientsHandler = (type) => {
-    //below four lines done the work to create the updated state for incremented ingredient
-    const ingCount = this.state.ingredients[type];
-    const updatedIngCount = ingCount + 1;
-    const currIngState = { ...this.state.ingredients };
-    currIngState[type] = updatedIngCount;
 
-    //below lines are for updating the price as per ingredients added
-    // const currPrice = this.state.totalPrice;
-    // const newPrice = currPrice + INGREDIENTS_PRICES[type];
-
-    //now finally we update the state
-    this.setState({
-      // totalPrice: newPrice,
-      ingredients: currIngState,
-    });
-
-    //for order button  validation
-    this.orderButtonValiadtor(currIngState);
-  };
-
-  removeIngredientsHandler = (type) => {
-    //below four lines done the work to create the updated state for removing ingredient
-    const ingCount = this.state.ingredients[type];
-    const updatedIngCount = ingCount - 1;
-    const currIngState = { ...this.state.ingredients };
-    currIngState[type] = updatedIngCount;
-
-    //below lines are for updating the price as per ingredients added
-    // const currPrice = this.state.totalPrice;
-    // const newPrice = currPrice - INGREDIENTS_PRICES[type];
-
-    //now finally we update the state
-    this.setState({
-      // totalPrice: newPrice,
-      ingredients: currIngState,
-    });
-    //for order button  validation
-    this.orderButtonValiadtor(currIngState);
-  };
-*/
   //for performing action when order button clicked
   orderClcikedHandler = () => {
     this.setState({ OrderClicked: true });
@@ -100,38 +52,7 @@ class BurgerBuilder extends Component {
   };
 
   continueOrder = () => {
-    // this.setState({ loading: true });
-    // const order = {
-    //   ingredient: this.state.ingredients,
-    //   price: this.state.totalPrice,
-    //   customerData: {
-    //     name: "shahroz",
-    //     address: "shadman town, karachi",
-    //     email: "shahrozahmed286@gmail.com",
-    //   },
-    // };
-
-    // axios
-    //   .post("/orders.json", order)
-    //   .then((response) => {
-    //     this.setState({ loading: false, OrderClicked: false });
-    //   })
-    //   .catch((error) => {
-    //     this.setState({ loading: false, OrderClicked: false });
-    //   });
-
-    // const queryParam = [];
-
-    // for (let i in this.state.ingredients) {
-    //   queryParam.push(
-    //     encodeURIComponent(i) +
-    //       "=" +
-    //       encodeURIComponent(this.state.ingredients[i])
-    //   );
-    // }
-    // const queryStr = queryParam.join("&");
-
-    this.props.history.push({pathname: "/checkout"});
+    this.props.history.push({ pathname: "/checkout" });
   };
 
   render() {

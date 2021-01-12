@@ -2,11 +2,9 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import CheckoutSummary from "../../../components/Orders/CheckoutSummary/checkoutsummary";
 import ContactForm from "./Contact Form/contact-form";
-import {connect} from 'react-redux';
+import { connect } from "react-redux";
 
 class Checkout extends Component {
-
-
   checkoutContinueHandler = () => {
     this.props.history.replace("/checkout/contact-form");
     // {this.props.match.path + '/contact-form'}
@@ -15,15 +13,6 @@ class Checkout extends Component {
   checkoutCancleHandler = () => {
     this.props.history.goBack();
   };
-
-  // componentDidMount() {
-  //   const queryInUrl = new URLSearchParams(this.props.location.search);
-  //   const ingredients = {};
-  //   for (let params of queryInUrl.entries()) {
-  //     ingredients[params[0]] = +params[1];
-  //   }
-  //   this.setState({ ingredients: ingredients });
-  // }
 
   render() {
     return (
@@ -38,7 +27,7 @@ class Checkout extends Component {
         */}
         <Route
           path={this.props.match.path + "/contact-form"}
-          component = {ContactForm}
+          component={ContactForm}
         />
       </div>
     );

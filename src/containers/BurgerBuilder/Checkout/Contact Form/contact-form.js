@@ -153,18 +153,6 @@ class ContactForm extends Component {
     });
   };
 
-  // componentDidMount() {
-  //   //here i calculate the total price of burger using the ingredients, getting from props
-  //   const length = Object.keys(this.props.data).length;
-  //   const ing = this.props.data;
-  //   var total = this.state.totalPrice;
-  //   for (let item in INGREDIENTS_PRICES) {
-  //     total += INGREDIENTS_PRICES[item] * ing[item];
-  //   }
-
-  //   this.setState({ totalPrice: total, ingredients: ing });
-  // }
-
   placeOrder = (e) => {
     //to prevent page to refresh on the submission of form
     e.preventDefault();
