@@ -62,12 +62,12 @@ class BurgerBuilder extends Component {
     currIngState[type] = updatedIngCount;
 
     //below lines are for updating the price as per ingredients added
-    const currPrice = this.state.totalPrice;
-    const newPrice = currPrice + INGREDIENTS_PRICES[type];
+    // const currPrice = this.state.totalPrice;
+    // const newPrice = currPrice + INGREDIENTS_PRICES[type];
 
     //now finally we update the state
     this.setState({
-      totalPrice: newPrice,
+      // totalPrice: newPrice,
       ingredients: currIngState,
     });
 
@@ -83,12 +83,12 @@ class BurgerBuilder extends Component {
     currIngState[type] = updatedIngCount;
 
     //below lines are for updating the price as per ingredients added
-    const currPrice = this.state.totalPrice;
-    const newPrice = currPrice - INGREDIENTS_PRICES[type];
+    // const currPrice = this.state.totalPrice;
+    // const newPrice = currPrice - INGREDIENTS_PRICES[type];
 
     //now finally we update the state
     this.setState({
-      totalPrice: newPrice,
+      // totalPrice: newPrice,
       ingredients: currIngState,
     });
     //for order button  validation
@@ -165,7 +165,7 @@ class BurgerBuilder extends Component {
             addIngredient={this.props.onAddIngredient}
             removeIngredient={this.props.onRemoveIngredient}
             disable={disableInfo}
-            price={this.state.totalPrice}
+            price={this.props.totalPriceFromStore}
             purchasable={this.state.isPurchasable}
             ordered={this.orderClcikedHandler}
           />
@@ -198,6 +198,7 @@ class BurgerBuilder extends Component {
 const mapStateToProps = (state) => {
   return {
     ingFromStore: state.ingredients,
+    totalPriceFromStore : state.totalPrice
   };
 };
 
