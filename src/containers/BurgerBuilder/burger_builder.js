@@ -14,21 +14,20 @@ import { connect } from "react-redux";
 class BurgerBuilder extends Component {
   state = {
     OrderClicked: false,
-    loading: false,
     error: false,
   };
 
   componentDidMount() {
-    axios
-      .get("https://itsburgerapp.firebaseio.com/ingredients.json")
-      .then((response) => {
-        this.setState({ ingredients: response.data });
-      })
-      .catch((error) => {
-        this.setState({ error: true });
-      });
+    // axios
+    //   .get("https://itsburgerapp.firebaseio.com/ingredients.json")
+    //   .then((response) => {
+    //     this.setState({ ingredients: response.data });
+    //   })
+    //   .catch((error) => {
+    //     this.setState({ error: true });
+    //   });
   }
-z
+
   //validate if order button should be active or disable
   orderButtonValiadtor(ingredients) {
     const ingSorting = Object.keys(ingredients)
@@ -64,7 +63,7 @@ z
     }
 
     let orderSummary = null;
-    let burger = this.state.error ? (
+    let burger = this.props.error ? (
       <p>Ingredients can't load </p>
     ) : (
       <Spinner />
@@ -93,9 +92,9 @@ z
       );
     }
 
-    if (this.state.loading) {
-      orderSummary = <Spinner />;
-    }
+    // if (this.state.loading) {
+    //   orderSummary = <Spinner />;
+    // }
 
     return (
       <Aux>
@@ -112,6 +111,7 @@ const mapStateToProps = (state) => {
   return {
     ingFromStore: state.ingredients,
     totalPriceFromStore: state.totalPrice,
+    errorFormStor: state.error,
   };
 };
 
