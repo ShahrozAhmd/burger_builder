@@ -8,7 +8,7 @@ import axios from "../../axios-order";
 import Spinner from "../../components/UI/Spinner/spinner";
 import globalErrorHandler from "../../hoc/GlobalErrorHandler/globalErrorHandler";
 import Checkout from "./Checkout/checkout";
-import * as actionType from "../../store/actions";
+import * as actionType from "../../store/actions/actionTypes";
 import { connect } from "react-redux";
 
 class BurgerBuilder extends Component {
