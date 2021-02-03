@@ -26,6 +26,7 @@ class BurgerBuilder extends Component {
     //   .catch((error) => {
     //     this.setState({ error: true });
     //   });
+    this.props.initIngredients()
   }
 
   //validate if order button should be active or disable
@@ -121,6 +122,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(burgerBuilderActions.addIngredient(ingName)),
     onRemoveIngredient: (ingName) =>
       dispatch(burgerBuilderActions.removeIngredient(ingName)),
+    initIngredients: () => dispatch(burgerBuilderActions.intitIngredients()),
   };
 };
 
