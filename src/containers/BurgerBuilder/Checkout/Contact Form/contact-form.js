@@ -115,7 +115,7 @@ class ContactForm extends Component {
     return itsValid;
   };
 
-  //this function is to make out input field working, two way binding
+  //this function is to make our input field working, two way binding
   onChangeHandler = (event, elementRef) => {
     //here we just get the orderForm from state
     let orderForm = { ...this.state.orderForm };
