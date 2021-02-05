@@ -175,15 +175,15 @@ class ContactForm extends Component {
       };
 
       //posting order on the server :firebase
-      axios
-        .post("/orders.json", order)
-        .then((response) => {
-          this.setState({ loading: false });
-          this.props.history.push("/burger_builder");
-        })
-        .catch((error) => {
-          this.setState({ loading: false });
-        });
+      // axios
+      //   .post("/orders.json", order)
+      //   .then((response) => {
+      //     this.setState({ loading: false });
+      //     this.props.history.push("/burger_builder");
+      //   })
+      //   .catch((error) => {
+      //     this.setState({ loading: false });
+      //   });
     } else {
       this.setState({ orderButtonNotify: true });
     }

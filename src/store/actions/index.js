@@ -5,4 +5,7 @@ export {
     intitIngredients
 } from './burger_builder_actions';
 
-export {} from './order_actions';
+export {
+    placeOrder,
+    
+} from './order_actions';
