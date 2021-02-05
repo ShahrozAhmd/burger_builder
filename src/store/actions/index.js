@@ -1,11 +1,8 @@
 export {
-    addIngredient,
-    removeIngredient,
-    gotErrorInIngredients,
-    intitIngredients
-} from './burger_builder_actions';
+  addIngredient,
+  removeIngredient,
+  gotErrorInIngredients,
+  intitIngredients,
+} from "./burger_builder_actions";
 
-export {
-    placeOrder,
-    
-} from './order_actions';
+export { placeOrder } from "./order_actions";

@@ -26,7 +26,7 @@ class BurgerBuilder extends Component {
     //   .catch((error) => {
     //     this.setState({ error: true });
     //   });
-    this.props.initIngredients()
+    this.props.initIngredients();
   }
 
   //validate if order button should be active or disable

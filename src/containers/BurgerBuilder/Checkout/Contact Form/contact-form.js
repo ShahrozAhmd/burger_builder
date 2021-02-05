@@ -7,6 +7,7 @@ import Aux from "../../../../hoc/auxiliary";
 import Input from "../../../../components/UI/Input/input";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import * as orderActions from '../../../../store/actions/order_actions'
 
 class ContactForm extends Component {
   state = {
@@ -173,17 +174,7 @@ class ContactForm extends Component {
         price: this.props.totalPriceFromStore,
         contactForm: formData,
       };
-
-      //posting order on the server :firebase
-      // axios
-      //   .post("/orders.json", order)
-      //   .then((response) => {
-      //     this.setState({ loading: false });
-      //     this.props.history.push("/burger_builder");
-      //   })
-      //   .catch((error) => {
-      //     this.setState({ loading: false });
-      //   });
+    this.props.onPlacingOrder(order);
     } else {
       this.setState({ orderButtonNotify: true });
     }
@@ -248,6 +239,12 @@ const mapStateToProps = (state) => {
     totalPriceFromStore: state.totalPrice,
   };
 };
+
+const mapDispatchToProps = (dispatch) =>{
+return{
+  onPlacingOrder : (order) => orderActions.placeOrder(order)
+}
+}
 //here i use withRouter becase although this component is load from
 //Route but cant get props coz it is not directly loaded but from function
-export default connect(mapStateToProps)(withRouter(ContactForm));
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(ContactForm));

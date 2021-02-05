@@ -1,5 +1,5 @@
 import * as actionType from "./actionTypes";
-import axios from '../../axios-order'
+import axios from "../../axios-order";
 
 export const addIngredient = (ingName) => {
   return {
@@ -18,25 +18,25 @@ export const removeIngredient = (ingName) => {
 export const setIngredients = (ingredients) => {
   return {
     type: actionType.SET_INGREDIENTS,
-    ingredients: ingredients
+    ingredients: ingredients,
   };
 };
 
-export const gotErrorInIngredients = () =>{
-    return{
-        type: actionType.FETCH_INGREDIENTS_FAILED
-    }
-}
+export const gotErrorInIngredients = () => {
+  return {
+    type: actionType.FETCH_INGREDIENTS_FAILED,
+  };
+};
 
 export const intitIngredients = () => {
-  return dispatch => {
+  return (dispatch) => {
     axios
       .get("https://itsburgerapp.firebaseio.com/ingredients.json")
       .then((response) => {
-       dispatch(setIngredients(response.data));
+        dispatch(setIngredients(response.data));
       })
       .catch((error) => {
-        dispatch(gotErrorInIngredients())
+        dispatch(gotErrorInIngredients());
       });
   };
 };
