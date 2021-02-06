@@ -1,4 +1,3 @@
-
 import * as actionType from "../actions/actionTypes";
 
 const initialState = {
@@ -8,6 +7,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action) {
+    case actionType.START_TO_PLACE_ORDER:
+      return {
+        ...state,
+        loading: true,
+      };
     case actionType.PLACE_ORDER_SUCCESS:
       const newOrder = {
         ...action.orderData,

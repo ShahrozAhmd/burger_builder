@@ -1,6 +1,12 @@
 import * as actionType from "./actionTypes";
 import axios from "../../axios-order";
 
+export const startToPlaceOrder = () => {
+return{
+  type: actionType.START_TO_PLACE_ORDER,
+}
+}
+
 export const placeOrderSuccess = (id, orderData) => {
   return {
     type: actionType.PLACE_ORDER_SUCCESS,
@@ -18,6 +24,7 @@ export const placeOrderFail = (error) => {
 
 export const placeOrder = (orderToPost) => {
   return (dispatch) => {
+    dispatch(startToPlaceOrder());
     axios
       .post("/orders.json", orderToPost)
       .then((response) => {

@@ -96,8 +96,6 @@ class ContactForm extends Component {
         value: "",
       },
     },
-
-    loading: false,
     isOrderPlaceable: false,
     orderButtonNotify: false,
   };
@@ -212,7 +210,7 @@ class ContactForm extends Component {
 
     return (
       <Aux>
-        {this.state.loading ? (
+        {this.props.loading ? (
           <Spinner />
         ) : (
           <div className={classes.ContactForm}>
@@ -235,8 +233,9 @@ class ContactForm extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    ingFromStore: state.ingredients,
-    totalPriceFromStore: state.totalPrice,
+    ingFromStore: state.burgerBuilder.ingredients,
+    totalPriceFromStore: state.burgerBuilder.totalPrice,
+    loading: state.orders.loading,
   };
 };
 
