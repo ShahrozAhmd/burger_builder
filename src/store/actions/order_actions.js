@@ -2,10 +2,10 @@ import * as actionType from "./actionTypes";
 import axios from "../../axios-order";
 
 export const startToPlaceOrder = () => {
-return{
-  type: actionType.START_TO_PLACE_ORDER,
-}
-}
+  return {
+    type: actionType.START_TO_PLACE_ORDER,
+  };
+};
 
 export const placeOrderSuccess = (id, orderData) => {
   return {
@@ -25,13 +25,15 @@ export const placeOrderFail = (error) => {
 export const placeOrder = (orderToPost) => {
   return (dispatch) => {
     dispatch(startToPlaceOrder());
-    axios
-      .post("/orders.json", orderToPost)
-      .then((response) => {
-        dispatch(placeOrderSuccess(response.data, orderToPost));
-      })
-      .catch((error) => {
-        dispatch(placeOrderFail(error));
-      });
+    setTimeout(() => {
+      axios
+        .post("/orders.json", orderToPost)
+        .then((response) => {
+          dispatch(placeOrderSuccess(response.data, orderToPost));
+        })
+        .catch((error) => {
+          dispatch(placeOrderFail(error));
+        });
+    }, 2000);
   };
 };

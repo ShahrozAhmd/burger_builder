@@ -157,7 +157,7 @@ class ContactForm extends Component {
     e.preventDefault();
 
     if (this.state.isOrderPlaceable) {
-      this.setState({ loading: true });
+      //this.setState({ loading: true });
 
       // want to extract each name and value from orderForm object from state and make a new object
       // in which the data will be : {name: shahoz}
@@ -207,7 +207,7 @@ class ContactForm extends Component {
         />
       );
     });
-
+    console.log(this.props.loading);
     return (
       <Aux>
         {this.props.loading ? (

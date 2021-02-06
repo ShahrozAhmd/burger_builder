@@ -112,7 +112,7 @@ const mapStateToProps = (state) => {
   return {
     ingFromStore: state.burgerBuilder.ingredients,
     totalPriceFromStore: state.burgerBuilder.totalPrice,
-    errorFormStor: state.burgerBuilder.error,
+    errorFormStore: state.burgerBuilder.error,
   };
 };
 
