@@ -29,7 +29,7 @@ export const placeOrder = (orderToPost) => {
       axios
         .post("/orders.json", orderToPost)
         .then((response) => {
-          dispatch(placeOrderSuccess(response.data, orderToPost));
+          dispatch(placeOrderSuccess(response.data.name, orderToPost));
         })
         .catch((error) => {
           dispatch(placeOrderFail(error));
