@@ -3,10 +3,18 @@ import * as actionType from "../actions/actionTypes";
 const initialState = {
   orders: [],
   loading: false,
+  redirect: false
 };
 
 const reducer = (state = initialState, action) => {
-  switch (action) {
+  switch (action.type) {
+
+    case actionType.REDIRECT:
+      return{
+        ...state,
+        redirect: true,
+      }
+      
     case actionType.START_TO_PLACE_ORDER:
       return {
         ...state,

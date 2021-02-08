@@ -100,6 +100,13 @@ class ContactForm extends Component {
     orderButtonNotify: false,
   };
 
+  componentDidUpdate(){
+  console.log("Loading:", this.props.loading);
+  console.log("Redirect:", this.props.redirect);
+  console.log("ingFromStore", this.props.ingredients);
+  console.log("totalPriceFromStore", this.props.totalPrice);
+  }
+
   validityChecker = (value, rules) => {
     let itsValid = false;
 
@@ -172,16 +179,23 @@ class ContactForm extends Component {
         price: this.props.totalPriceFromStore,
         contactForm: formData,
       };
+      // this.props.history.replace("/checkout/contact-form");
+
       this.props.onPlacingOrder(order);
+     
+
+      // this.props.history.push("/burger_builder")
     } else {
       this.setState({ orderButtonNotify: true });
     }
   };
 
   render() {
+    if(this.props.redirect){
+      this.props.history.push("/burger_builder")
+    }
     //get all the keys of orderForm object in an array,
     // so we can map on it to generate inout fields:
-
     let ordersFields = [];
     for (const fields in this.state.orderForm) {
       ordersFields.push({
@@ -207,7 +221,7 @@ class ContactForm extends Component {
         />
       );
     });
-    console.log(this.props.loading);
+  
     return (
       <Aux>
         {this.props.loading ? (
@@ -231,11 +245,19 @@ class ContactForm extends Component {
     );
   }
 }
+
 const mapStateToProps = (state) => {
+  
+  console.log("Loading:", state.orders.loading);
+  console.log("Redirect:", state.orders.redirect);
+  console.log("ingFromStore", state.burgerBuilder.ingredients);
+  console.log("totalPriceFromStore", state.burgerBuilder.totalPrice);
+
   return {
     ingFromStore: state.burgerBuilder.ingredients,
     totalPriceFromStore: state.burgerBuilder.totalPrice,
     loading: state.orders.loading,
+    redirect: state.orders.redirect,
   };
 };
 

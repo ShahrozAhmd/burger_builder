@@ -1,6 +1,12 @@
 import * as actionType from "./actionTypes";
 import axios from "../../axios-order";
 
+export const doRedirect = () =>{
+  return {
+    type: actionType.REDIRECT,
+  }
+}
+
 export const startToPlaceOrder = () => {
   return {
     type: actionType.START_TO_PLACE_ORDER,
@@ -25,15 +31,15 @@ export const placeOrderFail = (error) => {
 export const placeOrder = (orderToPost) => {
   return (dispatch) => {
     dispatch(startToPlaceOrder());
-    setTimeout(() => {
-      axios
-        .post("/orders.json", orderToPost)
-        .then((response) => {
-          dispatch(placeOrderSuccess(response.data.name, orderToPost));
-        })
-        .catch((error) => {
-          dispatch(placeOrderFail(error));
-        });
-    }, 2000);
+
+    axios
+      .post("/orders.json", orderToPost)
+      .then((response) => {
+        dispatch(placeOrderSuccess(response.data.name, orderToPost));
+        dispatch(doRedirect());
+      })
+      .catch((error) => {
+        dispatch(placeOrderFail(error));
+      });
   };
 };
