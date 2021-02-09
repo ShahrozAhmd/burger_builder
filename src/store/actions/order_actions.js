@@ -50,3 +50,42 @@ export const placeOrder = (orderToPost) => {
       });
   };
 };
+
+export const fetchOrderStart = () => {
+  return {
+    type: actionType.START_TO_FETCH_ORDERS,
+  };
+};
+
+export const fetchOrderSuccess = (orders) => {
+  return {
+    type: actionType.FETCH_ORDERS_SUCCESS,
+    orders: orders,
+  };
+};
+
+export const fetchOrderFailed = (error) => {
+  return {
+    type: actionType.FETCH_ORDERS_FAIL,
+    error: error,
+  };
+};
+
+export const fetchOrders = () => {
+  return (dispatch) => {
+    dispatch(fetchOrderStart());
+    axios
+      .get("/orders.json")
+      .then((res) => {
+        const fetchedOrders = [];
+        // through the rough data we get from api and also assing the id to all orders
+        for (const key in res.data) {
+          fetchedOrders.push({ ...res.data[key], id: key });
+        }
+        dispatch(fetchOrderSuccess(fetchedOrders));
+      })
+      .catch((err) => {
+        dispatch(fetchOrderFailed(err));
+      });
+  };
+};

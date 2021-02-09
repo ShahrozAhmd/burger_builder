@@ -4,6 +4,7 @@ const initialState = {
   orders: [],
   loading: false,
   redirect: false,
+  error: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -39,7 +40,29 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        error: action.error,
       };
+
+    case actionType.START_TO_FETCH_ORDERS:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case actionType.FETCH_ORDERS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        orders: action.orders,
+      };
+
+    case actionType.FETCH_ORDERS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.error,
+      };
+
     default:
       return state;
   }
