@@ -100,13 +100,6 @@ class ContactForm extends Component {
     orderButtonNotify: false,
   };
 
-  componentDidUpdate() {
-    console.log("Loading:", this.props.loading);
-    console.log("Redirect:", this.props.redirect);
-    console.log("ingFromStore", this.props.ingredients);
-    console.log("totalPriceFromStore", this.props.totalPrice);
-  }
-
   validityChecker = (value, rules) => {
     let itsValid = false;
 
