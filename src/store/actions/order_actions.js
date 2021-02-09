@@ -1,11 +1,17 @@
 import * as actionType from "./actionTypes";
 import axios from "../../axios-order";
 
-export const doRedirect = () =>{
+export const doRedirect = () => {
   return {
     type: actionType.REDIRECT,
-  }
-}
+  };
+};
+
+export const doNotRedirect = () => {
+  return {
+    type: actionType.NOT_REDIRECT,
+  };
+};
 
 export const startToPlaceOrder = () => {
   return {
@@ -37,6 +43,7 @@ export const placeOrder = (orderToPost) => {
       .then((response) => {
         dispatch(placeOrderSuccess(response.data.name, orderToPost));
         dispatch(doRedirect());
+        dispatch(doNotRedirect());
       })
       .catch((error) => {
         dispatch(placeOrderFail(error));
