@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import Button from "../../components/UI/Button/button";
 import Input from "../../components/UI/Input/input";
 import classes from "./auth.module.css";
+import { connect } from "react-redux";
+import * as authActions from "../../store/actions/auth_actions";
 
-export default class Auth extends Component {
+class Auth extends Component {
   state = {
     authForm: {
       email: {
@@ -36,7 +38,7 @@ export default class Auth extends Component {
           rules: {
             required: true,
             minLength: 6,
-            maxLength: 12
+            maxLength: 12,
           },
         },
       },
@@ -101,6 +103,13 @@ export default class Auth extends Component {
     });
   };
 
+  onSubmitHandler = (e) => {
+    e.preventDefault();
+    this.props.onAuth(
+      this.state.authForm.email.value,
+      this.state.authForm.password.value
+    );
+  };
   render() {
     //get all the keys of orderForm object in an array,
     // so we can map on it to generate input fields:
@@ -130,8 +139,22 @@ export default class Auth extends Component {
       );
     });
 
-    return <div className={classes.Auth}>{InputField}
-    <Button btntype = 'Success'>Submit</Button>
-    </div>;
+    return (
+      <div className={classes.Auth}>
+        <form onSubmit={this.onSubmitHandler}>
+          {InputField}
+
+          <Button btntype="Success">Submit</Button>
+        </form>
+      </div>
+    );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuth: (email, pass) => dispatch(authActions.authenticate(email, pass)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Auth);

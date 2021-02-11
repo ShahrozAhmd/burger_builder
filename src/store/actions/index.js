@@ -6,3 +6,8 @@ export {
 } from "./burger_builder_actions";
 
 export { placeOrder, startToPlaceOrder, fetchOrders } from "./order_actions";
+
+
+export {
+  authenticate
+} from './auth_actions'
