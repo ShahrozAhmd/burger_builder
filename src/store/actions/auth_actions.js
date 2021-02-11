@@ -1,20 +1,19 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
 
-
-export const logout = () =>{
-    return{
-        type: actionTypes.AUTH_LOGOUT
-    }
-}
+export const logout = () => {
+  return {
+    type: actionTypes.AUTH_LOGOUT,
+  };
+};
 
 export const authLogout = (expirationTime) => {
-return dispatch => {
-    setTimeout(()=>{
-        dispatch(logout())
-    }, expirationTime)
-}
-}
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(logout());
+    }, expirationTime);
+  };
+};
 
 export const authStart = () => {
   return {
