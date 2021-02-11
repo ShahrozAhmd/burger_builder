@@ -45,6 +45,7 @@ class Auth extends Component {
     },
     isSubmitPossible: false,
     submitButtonNotify: false,
+    isSignUp: true,
   };
 
   validityChecker = (value, rules) => {
@@ -107,9 +108,19 @@ class Auth extends Component {
     e.preventDefault();
     this.props.onAuth(
       this.state.authForm.email.value,
-      this.state.authForm.password.value
+      this.state.authForm.password.value,
+      this.state.isSignUp
     );
   };
+
+  signingSwitch = () => {
+    this.setState((prevstate) => {
+      return {
+        isSignUp: !prevstate.isSignUp,
+      };
+    });
+  };
+
   render() {
     //get all the keys of orderForm object in an array,
     // so we can map on it to generate input fields:
@@ -146,6 +157,7 @@ class Auth extends Component {
 
           <Button btntype="Success">Submit</Button>
         </form>
+        <Button clicked = {this.signingSwitch} btntype="Danger">Switch To {this.state.isSignUp? "SIGN IN" : 'SIGN UP'}</Button>
       </div>
     );
   }
@@ -153,7 +165,7 @@ class Auth extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAuth: (email, pass) => dispatch(authActions.authenticate(email, pass)),
+    onAuth: (email, pass, isSignUp) => dispatch(authActions.authenticate(email, pass,isSignUp)),
   };
 };
 
