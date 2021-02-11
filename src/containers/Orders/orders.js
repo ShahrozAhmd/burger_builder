@@ -7,13 +7,10 @@ import { connect } from "react-redux";
 import Spinner from "../../components/UI/Spinner/spinner";
 
 class Orders extends Component {
-  // state = {
-  //   orders: [],
-  //   loading: false,
-  // };
 
-  //fetching orders from firebase
+  
   componentDidMount() {
+    //fetching orders from firebase
     this.props.forFetchingOrders();
   }
 

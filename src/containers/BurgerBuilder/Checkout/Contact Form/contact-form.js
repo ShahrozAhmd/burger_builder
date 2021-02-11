@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Button from "../../../../components/UI/Button/button";
 import Spinner from "../../../../components/UI/Spinner/spinner";
 import classes from "./contatc-form.module.css";
-import axios from "../../../../axios-order";
 import Aux from "../../../../hoc/auxiliary";
 import Input from "../../../../components/UI/Input/input";
 import { withRouter } from "react-router-dom";
@@ -118,11 +117,11 @@ class ContactForm extends Component {
   onChangeHandler = (event, elementRef) => {
     //here we just get the orderForm from state
     let orderForm = { ...this.state.orderForm };
-    //now extract the epecific form input object, name, email..
+    //now extract the specific form input object, name, email..
     let specificOrderForm = { ...orderForm[elementRef] };
     //change the value of that specific object
     specificOrderForm.value = event.target.value;
-    //we check the value of each single value
+    //we check the validation on each single key press, real time validity check, thanks to react.
     specificOrderForm.validation.isValid = this.validityChecker(
       specificOrderForm.value,
       specificOrderForm.validation.rules
@@ -183,7 +182,7 @@ class ContactForm extends Component {
       this.props.history.push("/burger_builder");
     }
     //get all the keys of orderForm object in an array,
-    // so we can map on it to generate inout fields:
+    // so we can map on it to generate input fields:
     let ordersFields = [];
     for (const fields in this.state.orderForm) {
       ordersFields.push({
@@ -192,7 +191,7 @@ class ContactForm extends Component {
       });
     }
 
-    const InputField = ordersFields.map((item) => {
+    const InputField = ordersFields.map( item => {
       return (
         <Input
           key={item.id}
