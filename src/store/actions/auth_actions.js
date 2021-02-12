@@ -11,7 +11,7 @@ export const authLogout = (expirationTime) => {
   return (dispatch) => {
     setTimeout(() => {
       dispatch(logout());
-    }, expirationTime);
+    }, expirationTime*1000);
   };
 };
 
@@ -53,7 +53,6 @@ export const authenticate = (email, pass, isSignUp) => {
     axios
       .post(url, authData)
       .then((response) => {
-        console.log(response.data);
         dispatch(authSuccess(response.data));
         dispatch(authLogout(response.data.expiresIn));
       })

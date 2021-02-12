@@ -171,7 +171,7 @@ class ContactForm extends Component {
         contactForm: formData,
       };
 
-      this.props.onPlacingOrder(order);
+      this.props.onPlacingOrder(order, this.props.idToken);
     } else {
       this.setState({ orderButtonNotify: true });
     }
@@ -239,12 +239,14 @@ const mapStateToProps = (state) => {
     totalPriceFromStore: state.burgerBuilder.totalPrice,
     loading: state.orders.loading,
     redirect: state.orders.redirect,
+    idToken: state.authentication.idToken
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onPlacingOrder: (order) => dispatch(orderActions.placeOrder(order)),
+    onPlacingOrder: (order, idToken) => dispatch(orderActions.placeOrder(order,idToken)),
+  
   };
 };
 //here i use withRouter becase although this component is load from

@@ -34,12 +34,12 @@ export const placeOrderFail = (error) => {
   };
 };
 
-export const placeOrder = (orderToPost) => {
+export const placeOrder = (orderToPost,idToken) => {
   return (dispatch) => {
     dispatch(startToPlaceOrder());
 
     axios
-      .post("/orders.json", orderToPost)
+      .post("/orders.json?auth="+ idToken, orderToPost)
       .then((response) => {
         dispatch(placeOrderSuccess(response.data.name, orderToPost));
         dispatch(doRedirect());
@@ -71,11 +71,11 @@ export const fetchOrderFailed = (error) => {
   };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = (idToken) => {
   return (dispatch) => {
     dispatch(fetchOrderStart());
     axios
-      .get("/orders.json")
+      .get("/orders.json?auth="+idToken)
       .then((res) => {
         const fetchedOrders = [];
         // through the rough data we get from api and also assing the id to all orders
