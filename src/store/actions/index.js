@@ -9,5 +9,6 @@ export { placeOrder, startToPlaceOrder, fetchOrders } from "./order_actions";
 
 
 export {
-  authenticate
+  authenticate,
+  logout
 } from './auth_actions'
