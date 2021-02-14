@@ -44,7 +44,11 @@ class BurgerBuilder extends Component {
 
   //for performing action when order button clicked
   orderClcikedHandler = () => {
-    this.setState({ OrderClicked: true });
+    if (this.props.isAuth) {
+      this.setState({ OrderClicked: true });
+    } else {
+      this.props.history.push("/auth");
+    }
   };
   //for removing modal by clicking on backdorp
   removeModal = () => {
@@ -94,11 +98,6 @@ class BurgerBuilder extends Component {
         />
       );
     }
-
-    // if (this.state.loading) {
-    //   orderSummary = <Spinner />;
-    // }
-
     return (
       <Aux>
         <Modal show={this.state.OrderClicked} removebackdrop={this.removeModal}>
