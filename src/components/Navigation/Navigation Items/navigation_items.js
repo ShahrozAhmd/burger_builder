@@ -6,7 +6,9 @@ export default function NavigationItems(props) {
   return (
     <ul className={classes.NavigationItems}>
       <NavigationItem link="/burger_builder">BURGER</NavigationItem>
-      <NavigationItem link="/orders">ORDERS</NavigationItem>
+      {props.isAuth ? (
+        <NavigationItem link="/orders">ORDERS</NavigationItem>
+      ) : null}
       {props.isAuth !== null ? (
         <NavigationItem link="/logout">Logout</NavigationItem>
       ) : (

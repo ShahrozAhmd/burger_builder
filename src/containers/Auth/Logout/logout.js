@@ -15,7 +15,7 @@ import * as actionType from '../../../store/actions/index'
         )
     }
 }
-
+ 
 const mapDispatchToProps = (dispatch) => {
 return{
     onLogout: () =>{dispatch(actionType.logout())} 
