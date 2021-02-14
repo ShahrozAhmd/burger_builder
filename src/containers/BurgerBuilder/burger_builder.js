@@ -7,7 +7,6 @@ import OrderSummary from "../../components/Burger/Order Summary/order_summary";
 import axios from "../../axios-order";
 import Spinner from "../../components/UI/Spinner/spinner";
 import globalErrorHandler from "../../hoc/GlobalErrorHandler/globalErrorHandler";
-//import Checkout from "./Checkout/checkout";
 import * as burgerBuilderActions from "../../store/actions/index";
 import { connect } from "react-redux";
 
@@ -18,14 +17,6 @@ class BurgerBuilder extends Component {
   };
 
   componentDidMount() {
-    // axios
-    //   .get("https://itsburgerapp.firebaseio.com/ingredients.json")
-    //   .then((response) => {
-    //     this.setState({ ingredients: response.data });
-    //   })
-    //   .catch((error) => {
-    //     this.setState({ error: true });
-    //   });
     this.props.initIngredients();
   }
 
