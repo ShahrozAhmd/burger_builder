@@ -170,7 +170,6 @@ class Auth extends Component {
         {errorMessage}
         <form onSubmit={this.onSubmitHandler}>
           {this.props.loading ? <Spinner /> : InputField}
-
           <Button btntype="Success">Submit</Button>
         </form>
         <Button clicked={this.signingSwitch} btntype="Danger">
