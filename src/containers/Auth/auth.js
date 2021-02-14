@@ -5,6 +5,7 @@ import classes from "./auth.module.css";
 import { connect } from "react-redux";
 import * as authActions from "../../store/actions/auth_actions";
 import Spinner from "../../components/UI/Spinner/spinner";
+import { Redirect } from "react-router-dom";
 
 class Auth extends Component {
   state = {
@@ -156,8 +157,16 @@ class Auth extends Component {
       errorMessage = <p style={{ color: "red" }}>{this.props.error.message}</p>;
     }
 
+    let redirect = null;
+    // this.props.isAuth ? (redirect = <Redirect to="/burger_builder" />) : null;
+
+    if (this.props.isAuth) {
+      redirect = <Redirect to="burger_builder" />;
+    }
+
     return (
       <div className={classes.Auth}>
+        {redirect}
         {errorMessage}
         <form onSubmit={this.onSubmitHandler}>
           {this.props.loading ? <Spinner /> : InputField}
@@ -176,6 +185,7 @@ const mapStateToProps = (state) => {
   return {
     loading: state.authentication.loading,
     error: state.authentication.error,
+    isAuth: state.authentication.idToken !== null,
   };
 };
 
