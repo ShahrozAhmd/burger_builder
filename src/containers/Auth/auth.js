@@ -160,7 +160,10 @@ class Auth extends Component {
     let redirect = null;
     // this.props.isAuth ? (redirect = <Redirect to="/burger_builder" />) : null;
 
-    if (this.props.isAuth) {
+    if (this.props.isAuth && this.props.haveIng) {
+      console.log(this.props.haveIng);
+      redirect = <Redirect to="/checkout" />;
+    } else if (this.props.isAuth) {
       redirect = <Redirect to="burger_builder" />;
     }
 
@@ -185,6 +188,7 @@ const mapStateToProps = (state) => {
     loading: state.authentication.loading,
     error: state.authentication.error,
     isAuth: state.authentication.idToken !== null,
+    haveIng: state.burgerBuilder.totalPrice > 5,
   };
 };
 

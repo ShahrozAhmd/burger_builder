@@ -11,7 +11,7 @@ export const authLogout = (expirationTime) => {
   return (dispatch) => {
     setTimeout(() => {
       dispatch(logout());
-    }, expirationTime*1000);
+    }, expirationTime * 1000);
   };
 };
 
@@ -43,7 +43,6 @@ export const authenticate = (email, pass, isSignUp) => {
       password: pass,
       returnSecureToken: true,
     };
-
     let url =
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBy4c6DaAfhkiDB6TP06-rFyhScM1LuZek";
     if (!isSignUp) {

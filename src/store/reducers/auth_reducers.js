@@ -5,6 +5,7 @@ const initialState = {
   localId: null,
   loading: null,
   error: null,
+  redirectPath: null,
 };
 
 const reducer = (state = initialState, action) => {
