@@ -161,7 +161,6 @@ class Auth extends Component {
     // this.props.isAuth ? (redirect = <Redirect to="/burger_builder" />) : null;
 
     if (this.props.isAuth && this.props.haveIng) {
-      console.log(this.props.haveIng);
       redirect = <Redirect to="/checkout" />;
     } else if (this.props.isAuth) {
       redirect = <Redirect to="burger_builder" />;

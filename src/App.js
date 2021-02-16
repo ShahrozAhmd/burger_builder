@@ -5,9 +5,15 @@ import Checkout from "./containers/BurgerBuilder/Checkout/checkout";
 import { BrowserRouter, Route } from "react-router-dom";
 import Orders from "./containers/Orders/orders";
 import Auth from "./containers/Auth/auth";
-import Logout from './containers/Auth/Logout/logout'
+import Logout from "./containers/Auth/Logout/logout";
+import { connect } from "react-redux";
+import * as action from "./store/actions/index";
 
 class App extends Component {
+  componentDidMount() {
+    console.log("app.js chal raha hai");
+    this.props.onRefreshAuth(this.props.idToken);
+  }
   render() {
     return (
       <Layout>
@@ -21,4 +27,16 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onRefreshAuth: (idToken) => dispatch(action.storeAuth(idToken)),
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    idToken: state.authentication.idToken !== null,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

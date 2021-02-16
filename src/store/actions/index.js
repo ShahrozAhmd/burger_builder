@@ -7,8 +7,4 @@ export {
 
 export { placeOrder, startToPlaceOrder, fetchOrders } from "./order_actions";
 
-
-export {
-  authenticate,
-  logout
-} from './auth_actions'
+export { authenticate, logout, storeAuth } from "./auth_actions";

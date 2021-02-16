@@ -2,6 +2,9 @@ import axios from "axios";
 import * as actionTypes from "./actionTypes";
 
 export const logout = () => {
+  localStorage.removeItem("idToken");
+  localStorage.removeItem("Expire");
+  localStorage.removeItem("localId");
   return {
     type: actionTypes.AUTH_LOGOUT,
   };
@@ -53,11 +56,29 @@ export const authenticate = (email, pass, isSignUp) => {
       .post(url, authData)
       .then((response) => {
         dispatch(authSuccess(response.data));
+        localStorage.setItem("idToken", response.data.idToken);
+        localStorage.setItem("Expire", response.data.expiresIn);
+        localStorage.setItem("localId", response.data.localId);
         dispatch(authLogout(response.data.expiresIn));
       })
       .catch((err) => {
         console.log(err);
         dispatch(authFail(err.response.data.error));
       });
+  };
+};
+
+export const storeAuth = (idToken) => {
+  return (dispatch) => {
+    if (localStorage.getItem("idToken") !== null || idToken !== null) {
+      const authStorage = {
+        idToken: localStorage.getItem("idToken"),
+        expiresIn: localStorage.getItem("Expire"),
+        localId: localStorage.getItem("localId"),
+      };
+      const expireTime = localStorage.getItem("Expire");
+      dispatch(authSuccess(authStorage));
+      dispatch(authLogout(expireTime));
+    }
   };
 };
