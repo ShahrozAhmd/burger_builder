@@ -56,6 +56,7 @@ export const authenticate = (email, pass, isSignUp) => {
       .post(url, authData)
       .then((response) => {
         dispatch(authSuccess(response.data));
+        console.log(response.data);
         localStorage.setItem("idToken", response.data.idToken);
         localStorage.setItem("Expire", response.data.expiresIn);
         localStorage.setItem("localId", response.data.localId);

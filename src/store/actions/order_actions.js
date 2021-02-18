@@ -71,11 +71,13 @@ export const fetchOrderFailed = (error) => {
   };
 };
 
-export const fetchOrders = (idToken) => {
+export const fetchOrders = (idToken,localId) => {
   return (dispatch) => {
     dispatch(fetchOrderStart());
+    // '/orders.json?auth="+idToken+"&orderBy='userId'&equalTo='"+ localId+"'")
     axios
-      .get("/orders.json?auth="+idToken)
+      // .get('/orders.json?auth='+idToken +'&orderBy="userId"&equalTo='+localId)
+      .get('/orders.json?auth='+idToken+'&orderBy="userId"&equalTo="'+localId+'"')
       .then((res) => {
         const fetchedOrders = [];
         // through the rough data we get from api and also assing the id to all orders

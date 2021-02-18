@@ -11,7 +11,7 @@ class Orders extends Component {
   
   componentDidMount() {
     //fetching orders from firebase
-    this.props.forFetchingOrders(this.props.idToken);
+    this.props.forFetchingOrders(this.props.idToken, this.props.userId);
   }
 
   render() {
@@ -36,13 +36,14 @@ const mapStateToProps = (state) => {
     fetchedOrders: state.orders.orders,
     loading: state.orders.loading,
     idToken : state.authentication.idToken,
+    userId: state.authentication.localId,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    forFetchingOrders: (token) => {
-      dispatch(orderFetchingAction.fetchOrders(token));
+    forFetchingOrders: (token,localId) => {
+      dispatch(orderFetchingAction.fetchOrders(token,localId));
     },
   };
 };
