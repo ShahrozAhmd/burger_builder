@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Layout from "./hoc/Layout/layout";
 import BurgerBuilder from "./containers/BurgerBuilder/burger_builder";
 import Checkout from "./containers/BurgerBuilder/Checkout/checkout";
-import { BrowserRouter, Route } from "react-router-dom";
+import {Route } from "react-router-dom";
 import Orders from "./containers/Orders/orders";
 import Auth from "./containers/Auth/auth";
 import Logout from "./containers/Auth/Logout/logout";
@@ -11,7 +11,6 @@ import * as action from "./store/actions/index";
 
 class App extends Component {
   componentDidMount() {
-    console.log("app.js chal raha hai");
     this.props.onRefreshAuth(this.props.idToken);
   }
   render() {
